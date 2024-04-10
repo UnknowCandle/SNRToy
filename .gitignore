@@ -1,0 +1,11 @@
+Library
+Logs
+Temp
+Assembly-CSharp-Editor.csproj
+Assembly-CSharp.csproj
+SNRToy.csproj
+SNRToy.Editor.csproj
+SNRToy.sln
+.vscode
+packages-lock.json
+default-2022.dwlt
