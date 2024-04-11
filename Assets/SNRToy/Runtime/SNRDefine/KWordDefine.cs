@@ -3,9 +3,14 @@ namespace SNRKWordDefine
     public static class KWord
     {
 
+        #region Editor Setting
+        public const string PixelPerUnit = "PixelPerUnit";
+
+        #endregion
 
 
         #region System
+
         public const string IsSoundMute = "IsSoundMute";
         #endregion
 
