@@ -2,6 +2,7 @@ namespace SNRKWordDefine
 {
     public static class KWord
     {
+        
 
         #region Editor Setting
         public const string PixelPerUnit = "PixelPerUnit";
@@ -81,6 +82,14 @@ namespace SNRKWordDefine
         public const string BuildPipeline = "BuildPipeline";
 
         //public const string BuiltinBuildPipeline = "BuiltinBuildPipeline";
+
+
+        #region In Prefab
+        public const string LoadFadeIn = "LoadFadeIn";
+        public const string LoadFadeOut = "LoadFadeOut";
+
+
+        #endregion
 
     }
 
