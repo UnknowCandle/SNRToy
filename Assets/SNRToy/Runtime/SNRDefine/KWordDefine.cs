@@ -2,7 +2,16 @@ namespace SNRKWordDefine
 {
     public static class KWord
     {
-        
+        #region Btn Status
+        public const string focus = "focus";
+
+        public const string pressed = "pressed";
+
+
+        #endregion
+
+
+
 
         #region Editor Setting
         public const string PixelPerUnit = "PixelPerUnit";
