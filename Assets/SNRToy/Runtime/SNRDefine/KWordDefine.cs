@@ -12,7 +12,6 @@ namespace SNRKWordDefine
 
 
 
-
         #region Editor Setting
         public const string PixelPerUnit = "PixelPerUnit";
 
