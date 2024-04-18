@@ -97,6 +97,9 @@ namespace SNRKWordDefine
         public const string LoadFadeIn = "LoadFadeIn";
         public const string LoadFadeOut = "LoadFadeOut";
 
+        public const string FadeIn = "FadeIn";
+        public const string FadeOut = "FadeOut";
+
 
         #endregion
 

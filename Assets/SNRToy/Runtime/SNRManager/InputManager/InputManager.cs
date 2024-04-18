@@ -33,9 +33,9 @@ namespace SNRInputManager
 
 
 
-        public static void EnableActUI(bool disableOther = true)
+        public static void EnableActUI(bool disableOtherInput = false)
         {
-            if (disableOther)
+            if (disableOtherInput)
             {
                 DisableAll();
             }
