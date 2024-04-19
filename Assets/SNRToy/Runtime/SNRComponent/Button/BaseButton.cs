@@ -13,7 +13,6 @@ public class BaseButton : SNRBehaviour
         set { s_defClickSoundName = value; }
     }
 
-
     public bool _playClickSound = true;
 
 
