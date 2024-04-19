@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class BaseButton : SNRBehaviour
 {
+
+    public SNRBehaviour _btnController;
+
     private static string s_defClickSoundName = null;
 
     public string DefClickSoundName
