@@ -5,22 +5,30 @@ using UnityEngine;
 
 public class SNRBehaviour : MonoBehaviour
 {
-    public virtual void updateAndRefresh()
-    {
-        updateData();
-        refreshUI();
-    }
 
-
-    public virtual void refreshUI()
+    public virtual void InitData()
     {
 
     }
 
-    public virtual void updateData()
+
+    public virtual void UpdateAndRefresh()
+    {
+        UpdateData();
+        RefreshUI();
+    }
+
+
+    public virtual void RefreshUI()
     {
 
     }
+
+    public virtual void UpdateData()
+    {
+
+    }
+
 
 
 

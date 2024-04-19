@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BaseButton : MonoBehaviour
+public class BaseButton : SNRBehaviour
 {
     private static string s_defClickSoundName = null;
 
