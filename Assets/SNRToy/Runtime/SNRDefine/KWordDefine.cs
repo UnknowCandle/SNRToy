@@ -100,6 +100,7 @@ namespace SNRKWordDefine
         public const string FadeOut = "FadeOut";
 
 
+
         #endregion
 
     }
