@@ -3,6 +3,7 @@ using UnityEditor.SceneManagement;
 using UnityEngine;
 
 [InitializeOnLoad]
+//在editor的scene中添加一个按钮来播放默认场景
 public class PlayDefaultSc
 {
     private const string mDefPathKey = "KSNRDefaultScenePath"; // 默认场景路径保存的键值
