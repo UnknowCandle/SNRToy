@@ -11,12 +11,17 @@ public class FillListByNode : MonoBehaviour
     //inspector界面数值有改变时会触发
     void OnValidate()
     {
-        // 延迟一帧后执行,否则会卡在删除所有子对象
-        EditorApplication.delayCall += () =>
+
+        if (!EditorApplication.isPlaying)
         {
-            DeleteAllChildren();
-            GenerateFillNode();
-        };
+            // 延迟一帧后执行,否则会卡在删除所有子对象
+            EditorApplication.delayCall += () =>
+            {
+                DeleteAllChildren();
+                GenerateFillNode();
+            };
+
+        }
 
     }
 
