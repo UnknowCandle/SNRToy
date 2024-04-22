@@ -1,4 +1,4 @@
-# if UNITY_EDITOR
+#if UNITY_EDITOR
 using UnityEditor;
 using UnityEngine;
 
@@ -11,20 +11,17 @@ public class FillListByNode : MonoBehaviour
     //inspector界面数值有改变时会触发
     void OnValidate()
     {
-
-        if (!EditorApplication.isPlaying)
+        // 延迟一帧后执行,否则会卡在删除所有子对象
+        EditorApplication.delayCall += () =>
         {
-            // 延迟一帧后执行,否则会卡在删除所有子对象
-            EditorApplication.delayCall += () =>
+            if (this != null)//播放时因为延迟执行了可能报错,所以再次判断
             {
                 DeleteAllChildren();
                 GenerateFillNode();
-            };
-
-        }
+            }
+        };
 
     }
-
 
     void GenerateFillNode()
     {
@@ -35,7 +32,6 @@ public class FillListByNode : MonoBehaviour
         }
     }
 
-
     void DeleteAllChildren()
     {
         while (transform.childCount > 0)
@@ -43,10 +39,5 @@ public class FillListByNode : MonoBehaviour
             DestroyImmediate(transform.GetChild(0).gameObject);
         }
     }
-
-
-
 }
-
-
 #endif
