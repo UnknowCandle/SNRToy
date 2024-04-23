@@ -22,12 +22,19 @@ public class FillListByNode : MonoBehaviour
                 if (this != null)//播放时因为延迟执行了可能报错,所以再次判断
                 {
                     DeleteAllChildren();
-                    GenerateFillNode();
+
+                    // 判断 _fillNode 是否为 Prefab
+                    if (PrefabUtility.IsPartOfPrefabAsset(_fillNode))
+                    {
+                        GenerateFillNodeFromPrefab();
+                    }
+                    else
+                    {
+                        GenerateFillNode();
+                    }
                 }
             };
-
         }
-
     }
 
     void GenerateFillNode()
@@ -35,6 +42,15 @@ public class FillListByNode : MonoBehaviour
         for (int i = 0; i < _fillNum; ++i)
         {
             GameObject node = Instantiate(_fillNode, transform);
+            node.name = i.ToString();
+        }
+    }
+
+    void GenerateFillNodeFromPrefab()
+    {
+        for (int i = 0; i < _fillNum; ++i)
+        {
+            GameObject node = PrefabUtility.InstantiatePrefab(_fillNode, transform) as GameObject;
             node.name = i.ToString();
         }
     }
