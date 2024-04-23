@@ -7,19 +7,26 @@ public class FillListByNode : MonoBehaviour
 {
     public int _fillNum;
     public GameObject _fillNode;
+    public bool _refresh = false;//不加这开关拖prefab时会卡死
 
     //inspector界面数值有改变时会触发
     void OnValidate()
     {
-        // 延迟一帧后执行,否则会卡在删除所有子对象
-        EditorApplication.delayCall += () =>
+        if (_refresh)
         {
-            if (this != null)//播放时因为延迟执行了可能报错,所以再次判断
+            _refresh = false;
+
+            // 延迟一帧后执行,否则会卡在删除所有子对象
+            EditorApplication.delayCall += () =>
             {
-                DeleteAllChildren();
-                GenerateFillNode();
-            }
-        };
+                if (this != null)//播放时因为延迟执行了可能报错,所以再次判断
+                {
+                    DeleteAllChildren();
+                    GenerateFillNode();
+                }
+            };
+
+        }
 
     }
 
