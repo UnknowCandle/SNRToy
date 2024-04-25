@@ -20,6 +20,18 @@ public class SoundManager : MonoBehaviour
         }
     }
 
+    //0-1
+    public void SetGlobalVolume(float pVolume)
+    {
+        AudioController.SetGlobalVolume(pVolume);
+    }
+
+    public void SetCategoryVolume(string pName, float pVolume)
+    {
+        AudioController.SetCategoryVolume(pName, pVolume);
+    }
+
+
 
     public void PlayMusic(string name)
     {
