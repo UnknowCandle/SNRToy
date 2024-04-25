@@ -21,6 +21,9 @@ namespace SNRKWordDefine
         #region System
 
         public const string IsSoundMute = "IsSoundMute";
+        public const string Music = "Music";
+        public const string Effect = "Effect";
+
         #endregion
 
 
