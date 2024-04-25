@@ -10,3 +10,5 @@ SNRToy.sln
 packages-lock.json
 default-2022.dwlt
 obj
+Assets/TextMesh Pro
+TextMesh Pro.meta

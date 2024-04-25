@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using SNRLogHelper;
 using UnityEngine;
 
@@ -24,6 +25,29 @@ namespace SNRGameObjectExtend
             return curTrans.gameObject;
         }
 
+
+        public static List<T> GetChildWithType<T>(this GameObject value, bool recursion = true)
+        {
+            List<T> ret = new List<T>();
+            Transform rootTrans = value.transform;
+
+            foreach (Transform child in rootTrans)
+            {
+                T checkType = child.GetComponent<T>();
+                if (checkType != null)
+                {
+                    ret.Add(checkType);
+                }
+
+                if (recursion)
+                {
+                    ret.AddRange(GetChildWithType<T>(child.gameObject));
+                }
+
+            }
+
+            return ret;
+        }
 
     }
 
