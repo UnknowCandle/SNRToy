@@ -1,0 +1,34 @@
+{
+    "name": "UniversalInputCtr",
+    "maps": [
+        {
+            "name": "UI",
+            "id": "4020e5e5-7fdd-47d5-b176-bb55539fa201",
+            "actions": [
+                {
+                    "name": "LayerBack",
+                    "type": "Value",
+                    "id": "163edfd5-cf65-4553-bb94-1f94f26452fb",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "848d30bd-de2a-4385-8d40-de0a36efc508",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LayerBack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

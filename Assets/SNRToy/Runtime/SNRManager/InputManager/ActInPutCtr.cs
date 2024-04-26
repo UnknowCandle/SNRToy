@@ -53,15 +53,6 @@ public partial class @ActInPutCtr: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""LayerBack"",
-                    ""type"": ""Value"",
-                    ""id"": ""fe221a29-d8d2-4fba-bfad-8b8ac55b75ff"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -141,17 +132,6 @@ public partial class @ActInPutCtr: IInputActionCollection2, IDisposable
                     ""action"": ""Cancel"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""295d427c-4001-4cfa-b695-ef51d5f3c5c0"",
-                    ""path"": ""<Keyboard>/escape"",
-                    ""interactions"": ""Press"",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""LayerBack"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -163,7 +143,6 @@ public partial class @ActInPutCtr: IInputActionCollection2, IDisposable
         m_UI_MenuBtnSwitch = m_UI.FindAction("MenuBtnSwitch", throwIfNotFound: true);
         m_UI_Submit = m_UI.FindAction("Submit", throwIfNotFound: true);
         m_UI_Cancel = m_UI.FindAction("Cancel", throwIfNotFound: true);
-        m_UI_LayerBack = m_UI.FindAction("LayerBack", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -228,7 +207,6 @@ public partial class @ActInPutCtr: IInputActionCollection2, IDisposable
     private readonly InputAction m_UI_MenuBtnSwitch;
     private readonly InputAction m_UI_Submit;
     private readonly InputAction m_UI_Cancel;
-    private readonly InputAction m_UI_LayerBack;
     public struct UIActions
     {
         private @ActInPutCtr m_Wrapper;
@@ -236,7 +214,6 @@ public partial class @ActInPutCtr: IInputActionCollection2, IDisposable
         public InputAction @MenuBtnSwitch => m_Wrapper.m_UI_MenuBtnSwitch;
         public InputAction @Submit => m_Wrapper.m_UI_Submit;
         public InputAction @Cancel => m_Wrapper.m_UI_Cancel;
-        public InputAction @LayerBack => m_Wrapper.m_UI_LayerBack;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -255,9 +232,6 @@ public partial class @ActInPutCtr: IInputActionCollection2, IDisposable
             @Cancel.started += instance.OnCancel;
             @Cancel.performed += instance.OnCancel;
             @Cancel.canceled += instance.OnCancel;
-            @LayerBack.started += instance.OnLayerBack;
-            @LayerBack.performed += instance.OnLayerBack;
-            @LayerBack.canceled += instance.OnLayerBack;
         }
 
         private void UnregisterCallbacks(IUIActions instance)
@@ -271,9 +245,6 @@ public partial class @ActInPutCtr: IInputActionCollection2, IDisposable
             @Cancel.started -= instance.OnCancel;
             @Cancel.performed -= instance.OnCancel;
             @Cancel.canceled -= instance.OnCancel;
-            @LayerBack.started -= instance.OnLayerBack;
-            @LayerBack.performed -= instance.OnLayerBack;
-            @LayerBack.canceled -= instance.OnLayerBack;
         }
 
         public void RemoveCallbacks(IUIActions instance)
@@ -296,6 +267,5 @@ public partial class @ActInPutCtr: IInputActionCollection2, IDisposable
         void OnMenuBtnSwitch(InputAction.CallbackContext context);
         void OnSubmit(InputAction.CallbackContext context);
         void OnCancel(InputAction.CallbackContext context);
-        void OnLayerBack(InputAction.CallbackContext context);
     }
 }
