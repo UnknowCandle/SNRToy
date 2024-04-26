@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SoundManager : MonoBehaviour
 {
+    public float DefaultVolume { get; set; } = 0.8f;
 
     public bool IsMute
     {
@@ -20,14 +21,32 @@ public class SoundManager : MonoBehaviour
         }
     }
 
+
+    public float GetGlobalVolum()
+    {
+        float volume = PlayerPrefs.GetFloat(KWord.GlobalVolume, DefaultVolume);
+
+        return volume;
+    }
+
+
     //0-1
     public void SetGlobalVolume(float pVolume)
     {
+        PlayerPrefs.SetFloat(KWord.GlobalVolume, pVolume);
         AudioController.SetGlobalVolume(pVolume);
     }
 
+
+    public float GetCategoryVolume(string pName)
+    {
+        float volume = PlayerPrefs.GetFloat(KWord.SoundCategory + pName, DefaultVolume);
+
+        return volume;
+    }
     public void SetCategoryVolume(string pName, float pVolume)
     {
+        PlayerPrefs.SetFloat(KWord.SoundCategory + pName, pVolume);
         AudioController.SetCategoryVolume(pName, pVolume);
     }
 
@@ -89,12 +108,19 @@ public class SoundManager : MonoBehaviour
         {
             SLog.Warn("soundmanager not init from boot?");
             _instance = this;
+
+            SetGlobalVolume(GetGlobalVolum());
+
         }
         else
         {
             SLog.Warn("destory superfluous soundmanager obj");
             GameObject.Destroy(gameObject);
         }
+
+
+
+
     }
 
 }
