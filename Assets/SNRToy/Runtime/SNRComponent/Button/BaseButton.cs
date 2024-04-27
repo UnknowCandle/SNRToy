@@ -42,7 +42,7 @@ public class BaseButton : SNRBehaviour
         if (_playClickSound)
         {
             string playName = String.IsNullOrEmpty(pClickSoundName) ? s_defClickSoundName : pClickSoundName;
-            if (string.IsNullOrEmpty(playName))
+            if (!string.IsNullOrEmpty(playName))
             {
                 FindObjectOfType<SoundManager>()?.Play(playName);
             }
