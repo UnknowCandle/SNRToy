@@ -38,6 +38,25 @@ namespace SNRInputManager
         }
 
 
+        public static void EnableSkipCutscene(Action<InputAction.CallbackContext> pPerform)
+        {
+            UInputCtr.UI.SkipCutscene.Enable();
+            if (pPerform != null)
+            {
+                UInputCtr.UI.SkipCutscene.performed += pPerform;
+            }
+        }
+
+        public static void DisableSkipCutscene(Action<InputAction.CallbackContext> pPerform)
+        {
+            UInputCtr.UI.SkipCutscene.Disable();
+            if (pPerform != null)
+            {
+                UInputCtr.UI.SkipCutscene.performed -= pPerform;
+            }
+        }
+
+
         public static void EnableLayerBack(Action<InputAction.CallbackContext> pPerform)
         {
             UInputCtr.UI.LayerBack.Enable();

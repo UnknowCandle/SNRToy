@@ -35,6 +35,15 @@ public partial class @UniversalInputCtr: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""SkipCutscene"",
+                    ""type"": ""Value"",
+                    ""id"": ""f03fba5d-0b2c-4124-adec-20351a054497"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -48,6 +57,28 @@ public partial class @UniversalInputCtr: IInputActionCollection2, IDisposable
                     ""action"": ""LayerBack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""58afd953-1d0a-47f0-84e5-254431715df2"",
+                    ""path"": ""<Keyboard>/anyKey"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SkipCutscene"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1c5da4f1-b79f-4abf-8a95-8a2bd8f20921"",
+                    ""path"": ""<Mouse>/press"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SkipCutscene"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -57,6 +88,7 @@ public partial class @UniversalInputCtr: IInputActionCollection2, IDisposable
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_LayerBack = m_UI.FindAction("LayerBack", throwIfNotFound: true);
+        m_UI_SkipCutscene = m_UI.FindAction("SkipCutscene", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -119,11 +151,13 @@ public partial class @UniversalInputCtr: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_UI;
     private List<IUIActions> m_UIActionsCallbackInterfaces = new List<IUIActions>();
     private readonly InputAction m_UI_LayerBack;
+    private readonly InputAction m_UI_SkipCutscene;
     public struct UIActions
     {
         private @UniversalInputCtr m_Wrapper;
         public UIActions(@UniversalInputCtr wrapper) { m_Wrapper = wrapper; }
         public InputAction @LayerBack => m_Wrapper.m_UI_LayerBack;
+        public InputAction @SkipCutscene => m_Wrapper.m_UI_SkipCutscene;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -136,6 +170,9 @@ public partial class @UniversalInputCtr: IInputActionCollection2, IDisposable
             @LayerBack.started += instance.OnLayerBack;
             @LayerBack.performed += instance.OnLayerBack;
             @LayerBack.canceled += instance.OnLayerBack;
+            @SkipCutscene.started += instance.OnSkipCutscene;
+            @SkipCutscene.performed += instance.OnSkipCutscene;
+            @SkipCutscene.canceled += instance.OnSkipCutscene;
         }
 
         private void UnregisterCallbacks(IUIActions instance)
@@ -143,6 +180,9 @@ public partial class @UniversalInputCtr: IInputActionCollection2, IDisposable
             @LayerBack.started -= instance.OnLayerBack;
             @LayerBack.performed -= instance.OnLayerBack;
             @LayerBack.canceled -= instance.OnLayerBack;
+            @SkipCutscene.started -= instance.OnSkipCutscene;
+            @SkipCutscene.performed -= instance.OnSkipCutscene;
+            @SkipCutscene.canceled -= instance.OnSkipCutscene;
         }
 
         public void RemoveCallbacks(IUIActions instance)
@@ -163,5 +203,6 @@ public partial class @UniversalInputCtr: IInputActionCollection2, IDisposable
     public interface IUIActions
     {
         void OnLayerBack(InputAction.CallbackContext context);
+        void OnSkipCutscene(InputAction.CallbackContext context);
     }
 }
