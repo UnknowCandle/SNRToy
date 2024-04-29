@@ -50,7 +50,10 @@ public class SoundManager : MonoBehaviour
         AudioController.SetCategoryVolume(pName, pVolume);
     }
 
-
+    public bool StopMusic()
+    {
+        return AudioController.StopMusic();
+    }
 
     public void PlayMusic(string name)
     {
@@ -60,6 +63,17 @@ public class SoundManager : MonoBehaviour
         }
     }
 
+
+    public bool Stop(string pName = null, float pFadeOutLength = -1)
+    {
+        if (string.IsNullOrEmpty(pName))
+        {
+            AudioController.StopAll();
+            return true;
+        }
+
+        return AudioController.Stop(pName, pFadeOutLength);
+    }
     public void Play(string name)
     {
         if (!IsMute)
