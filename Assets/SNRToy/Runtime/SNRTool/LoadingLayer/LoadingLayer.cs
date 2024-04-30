@@ -17,6 +17,18 @@ public class LoadingLayer : MonoBehaviour
     public Action BeforeFadeOutAni { get; set; } = null;
 
 
+    public static LoadingLayer GetCurLoadingLayer()
+    {
+        GameObject obj = GameObject.Find("LoadingLayer");
+        LoadingLayer ret = null;
+        if (obj)
+        {
+            ret = obj.transform.Find("RootCanvas").GetComponent<LoadingLayer>();
+        }
+
+        return ret;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
