@@ -104,6 +104,8 @@ namespace SNRKWordDefine
         public const string FadeIn = "FadeIn";
         public const string FadeOut = "FadeOut";
 
+        public const string FadeInOut = "FadeInOut";
+
 
 
         #endregion
