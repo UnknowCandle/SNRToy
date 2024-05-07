@@ -26,8 +26,10 @@ public class AnyKeySkip : MonoBehaviour
         public Object PhaseObj { get; set; } = null;
         public PhaseType PType { get; set; } = PhaseType.Unknown;
 
+        #region Video
         public VideoClip VdoClip { get; set; } = null;
 
+        #endregion
 
         #region Animation
         public int AniEndFrame { get; set; } = 0;
@@ -42,6 +44,7 @@ public class AnyKeySkip : MonoBehaviour
 
     public DelRtnVoid2P<int, string> PlayAniEndCallback { get; set; } = null;
     public DelRtnVoid2P<int, string> PlayVideoEndCallback { get; set; } = null;
+    public DelRtnVoid1P<int> AllPhaseDoneCallback { get; set; } = null;
 
     public int _maxPhase = 1;//当前一共有几个过场 需跳过几次
     public int _curPhaseIdx = 0;//当前处于第几的个过场
@@ -53,11 +56,28 @@ public class AnyKeySkip : MonoBehaviour
         _maxPhase = maxPhase;
         _phaseDic.Clear();
         _phaseDic.UpdateFromDic<int, PhaseData>(dicData);
+        InitVideoCallBack();
 
         //do phase here
         DoPhase(startPhase);
     }
 
+    void InitVideoCallBack()
+    {
+        List<VideoPlayer> list = new List<VideoPlayer>();
+        foreach (var kyp in _phaseDic)
+        {
+            PhaseData data = _phaseDic[kyp.Key];
+            if (data.PType == PhaseType.Video && !list.Contains((VideoPlayer)data.PhaseObj))
+            {
+                VideoPlayer player = data.PhaseObj as VideoPlayer;
+                player.loopPointReached += PlayVideoEnd;
+
+                list.Add(player);
+            }
+        }
+
+    }
 
     void DoPhase(int pPhaseIdx)
     {
@@ -81,7 +101,6 @@ public class AnyKeySkip : MonoBehaviour
                     {
                         VideoPlayer player = data.PhaseObj as VideoPlayer;
                         player.clip = data.VdoClip;
-                        player.loopPointReached += PlayVideoEnd;
                         player.Play();
                     }
                     break;
@@ -106,6 +125,10 @@ public class AnyKeySkip : MonoBehaviour
     void AllPhaseDone()
     {
         SLog.Log("all phase done");
+        if (AllPhaseDoneCallback != null)
+        {
+            AllPhaseDoneCallback(_curPhaseIdx);
+        }
     }
 
     Animator GetCurPhaseAni()
@@ -136,7 +159,7 @@ public class AnyKeySkip : MonoBehaviour
     }
 
 
-    public void PlayAnimationEnd(string pName)
+    void PlayAnimationEnd(string pName)
     {
         SLog.Log("ani play end " + pName);
         if (PlayAniEndCallback != null)
@@ -177,12 +200,12 @@ public class AnyKeySkip : MonoBehaviour
     IEnumerator ShowTipSub(float pInterval)
     {
         CanvasGroup cg = GetRootCanvasGroup();
-        SLog.Log("cur alpha " + cg.alpha);
+        //SLog.Log("cur alpha " + cg.alpha);
         while (cg.alpha < 1.0f)
         {
             cg.alpha += pInterval;
-            SLog.Log("increase alpha " + cg.alpha);
-            yield return new WaitForSeconds(0.1f);
+            //SLog.Log("increase alpha " + cg.alpha);
+            yield return new WaitForSeconds(0.07f);
         }
     }
 
