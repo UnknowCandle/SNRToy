@@ -247,7 +247,7 @@ public class AnyKeySkip : MonoBehaviour
             PhaseData pData = _phaseDic[_curPhaseIdx];
             if (pData.StopSound)
             {
-                SoundManager.Instance.StopMusic();
+                SoundManager.Instance?.StopMusic();
             }
 
             switch (pData.PType)
