@@ -43,7 +43,7 @@ public class LoadingLayer : MonoBehaviour
 
     }
 
-    public void FadeIn()
+    public virtual void FadeIn()
     {
         if (BeforeFadeInAni != null)
         {
@@ -52,7 +52,7 @@ public class LoadingLayer : MonoBehaviour
         _animator.Play(_fadeInId);
     }
 
-    public void FadeOut()
+    public virtual void FadeOut()
     {
         if (BeforeFadeOutAni != null)
         {
