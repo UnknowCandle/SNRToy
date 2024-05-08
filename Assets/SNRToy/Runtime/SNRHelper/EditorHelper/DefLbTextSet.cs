@@ -1,8 +1,11 @@
 using UnityEngine;
-using UnityEditor;
 using TMPro;
 using System.IO;
 using SNRLogHelper;
+
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 
 public class DefLbTextSet : SNRBehaviour
@@ -90,6 +93,8 @@ public class DefLbTextSet : SNRBehaviour
 }
 
 
+#if UNITY_EDITOR
+
 //自定义编辑器脚本，用于在代码中应用默认的 TextMeshPro 字体设置
 [CustomEditor(typeof(DefLbTextSet))]
 public class DefLbTextSetEditor : Editor
@@ -106,3 +111,7 @@ public class DefLbTextSetEditor : Editor
     }
 
 }
+
+#endif
+
+
