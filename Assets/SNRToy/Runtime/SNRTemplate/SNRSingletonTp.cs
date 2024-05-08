@@ -21,6 +21,25 @@ public class SNRSingletonTp<T> : SNRBehaviour where T : SNRBehaviour
                 _instance = obj.AddComponent<T>();
                 obj.name = typeof(T).ToString();
                 DontDestroyOnLoad(obj);
+
+                string tName = typeof(T).Name;
+                switch (tName)
+                {
+                    case "SoundManager":
+                        {
+                            obj.AddComponent<AudioController>();
+                        }
+                        break;
+
+                    default:
+                        {
+
+                        }
+                        break;
+
+                }
+
+
             }
 
             return _instance;
