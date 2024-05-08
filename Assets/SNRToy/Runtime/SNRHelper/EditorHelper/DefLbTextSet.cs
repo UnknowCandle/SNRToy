@@ -12,7 +12,8 @@ public class DefLbTextSet : SNRBehaviour
 {
     public class DefSetData
     {
-        public string fontAssetPath = "Assets/AllToHot/Game/UnFighter/Asset/Font/NotoSerifCJKsc-Regular.asset";
+        //运行时加载目前放Resources文件夹下
+        public string fontAssetPath = "UnknowFighter/Asset/Font/NotoSerifCJKsc-Regular SDF";
         public int fontSize = 36;
         public FontStyles fontStyle = FontStyles.Normal;
         public bool wordWrapping = false;
@@ -59,7 +60,8 @@ public class DefLbTextSet : SNRBehaviour
 
         if (lb != null)
         {
-            TMP_FontAsset fontAsset = AssetDatabase.LoadAssetAtPath<TMP_FontAsset>(data.fontAssetPath);
+            TMP_FontAsset fontAsset = Resources.Load<TMP_FontAsset>(data.fontAssetPath);
+
             if (fontAsset != null)
             {
                 lb.font = fontAsset;
