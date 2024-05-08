@@ -60,6 +60,17 @@ public partial class @UniversalInputCtr: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""60008f78-d722-4f37-9998-072071912864"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LayerBack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""58afd953-1d0a-47f0-84e5-254431715df2"",
                     ""path"": ""<Keyboard>/anyKey"",
                     ""interactions"": ""Press"",
