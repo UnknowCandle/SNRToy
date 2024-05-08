@@ -2,7 +2,7 @@ using SNRKWordDefine;
 using SNRLogHelper;
 using UnityEngine;
 
-public class SoundManager : MonoBehaviour
+public class SoundManager : SNRSingletonTp<SoundManager>
 {
     public float DefaultVolume { get; set; } = 0.8f;
 
@@ -90,20 +90,6 @@ public class SoundManager : MonoBehaviour
 
     private static SoundManager _instance;
 
-    public static SoundManager Instance
-    {
-        get
-        {
-            if (_instance == null)
-            {
-                _instance = FindObjectOfType<SoundManager>();
-            }
-
-            return _instance;
-
-        }
-    }
-
     private SoundManager()
     {
 
@@ -115,26 +101,15 @@ public class SoundManager : MonoBehaviour
 
     }
 
-    void Awake()
+
+    public override void SubClassAwakeInit()
     {
+        base.SubClassAwakeInit();
+
         SLog.Log("soundmanager awake now");
-        if (_instance == null)
-        {
-            SLog.Warn("soundmanager not init from boot?");
-            _instance = this;
-
-            SetGlobalVolume(GetGlobalVolum());
-
-        }
-        else
-        {
-            SLog.Warn("destory superfluous soundmanager obj");
-            GameObject.Destroy(gameObject);
-        }
-
-
-
+        SetGlobalVolume(GetGlobalVolum());
 
     }
+
 
 }

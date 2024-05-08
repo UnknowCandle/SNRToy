@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using SNRLogHelper;
 using UnityEngine;
 
 public class SNRSingletonTp<T> : SNRBehaviour where T : SNRBehaviour
@@ -34,11 +35,22 @@ public class SNRSingletonTp<T> : SNRBehaviour where T : SNRBehaviour
         {
             _instance = this as T;
             DontDestroyOnLoad(gameObject);
+            SubClassAwakeInit();
         }
         else
         {
+            SLog.Warn($"destory superfluous singleton obj of {gameObject.name}");
             Destroy(gameObject);
         }
+    }
+
+    /// <summary>
+    /// use this not need to implement Awake
+    /// </summary>
+
+    public virtual void SubClassAwakeInit()
+    {
+
     }
 
 
