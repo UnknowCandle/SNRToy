@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using SNRDicExtend;
 using SNRInputManager;
 using SNRLogHelper;
@@ -179,7 +180,16 @@ public class AnyKeySkip : MonoBehaviour
 
     void PlayVideoEnd(VideoPlayer pPlayer)
     {
-        string vdoName = pPlayer.clip.name;
+        string vdoName = "";
+        if (pPlayer.clip != null)
+        {
+            vdoName = pPlayer.clip.name;
+        }
+        else if (pPlayer.url != null)
+        {
+            vdoName = Path.GetFileName(pPlayer.url);
+        }
+
         SLog.Log("vdo play end " + vdoName);
 
         if (PlayVideoEndCallback != null)
