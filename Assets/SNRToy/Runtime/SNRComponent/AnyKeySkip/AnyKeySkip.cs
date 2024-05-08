@@ -126,8 +126,6 @@ public class AnyKeySkip : MonoBehaviour
                 SLog.Err($"not have the phase idx {pPhaseIdx}");
             }
 
-
-
         }
     }
 
