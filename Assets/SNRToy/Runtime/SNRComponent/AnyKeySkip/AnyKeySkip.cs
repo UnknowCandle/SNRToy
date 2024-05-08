@@ -28,6 +28,7 @@ public class AnyKeySkip : MonoBehaviour
 
         #region Video
         public VideoClip VdoClip { get; set; } = null;
+        public string VdoFilePath { get; set; } = null;
 
         #endregion
 
@@ -100,7 +101,15 @@ public class AnyKeySkip : MonoBehaviour
                 case PhaseType.Video:
                     {
                         VideoPlayer player = data.PhaseObj as VideoPlayer;
-                        player.clip = data.VdoClip;
+                        if (data.VdoClip != null)
+                        {
+                            player.clip = data.VdoClip;
+                        }
+                        else if (data.VdoFilePath != null)
+                        {
+                            player.url = data.VdoFilePath;
+                        }
+
                         player.Play();
                     }
                     break;
