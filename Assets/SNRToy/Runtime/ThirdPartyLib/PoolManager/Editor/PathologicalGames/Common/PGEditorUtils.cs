@@ -6,6 +6,9 @@
 /// You may not use this file except in compliance with the License.
 /// You may obtain a copy of the License at: http://licensing.path-o-logical.com
 /// </Licensing>
+
+#if UNITY_EDITOR
+
 using UnityEditor;
 using UnityEngine;
 using System;
@@ -16,7 +19,7 @@ using System.Collections.Generic;
 /// <summary>
 ///	Functions to help with custom editors
 /// </summary>
-public static class PGEditorUtils 
+public static class PGEditorUtils
 {
     // Constants for major settings
     public const int CONTROLS_DEFAULT_LABEL_WIDTH = 140;
@@ -57,54 +60,54 @@ public static class PGEditorUtils
     /// </summary>
     public static void SetLabelWidth()
     {
-		EditorGUIUtility.labelWidth = CONTROLS_DEFAULT_LABEL_WIDTH;
-	}    
-	
-	public static void SetLabelWidth(int width)
+        EditorGUIUtility.labelWidth = CONTROLS_DEFAULT_LABEL_WIDTH;
+    }
+
+    public static void SetLabelWidth(int width)
     {
-		EditorGUIUtility.labelWidth = width;
-	}
-	
-	// For backwards compatability.
-	public static void LookLikeControls()
-	{
-		SetLabelWidth();
-	}
-	
-	/// <summary>
-	/// A toggle button for a Bool type SerializedProperty. Nothing is returned because the 
-	/// property is set by reference.
-	/// </summary>
-	/// <param name='property'>
-	/// SerializedProperty.
-	/// </param>
-	/// <param name='content'>
-	/// GUIContent(label, tooltip)
-	/// </param>
-	/// <param name='width'>
-	/// Width of the button
-	/// </param>
-	public static void ToggleButton(SerializedProperty property, GUIContent content, int width)
-	{
-		GUIStyle style = new GUIStyle(EditorStyles.miniButton);
+        EditorGUIUtility.labelWidth = width;
+    }
+
+    // For backwards compatability.
+    public static void LookLikeControls()
+    {
+        SetLabelWidth();
+    }
+
+    /// <summary>
+    /// A toggle button for a Bool type SerializedProperty. Nothing is returned because the 
+    /// property is set by reference.
+    /// </summary>
+    /// <param name='property'>
+    /// SerializedProperty.
+    /// </param>
+    /// <param name='content'>
+    /// GUIContent(label, tooltip)
+    /// </param>
+    /// <param name='width'>
+    /// Width of the button
+    /// </param>
+    public static void ToggleButton(SerializedProperty property, GUIContent content, int width)
+    {
+        GUIStyle style = new GUIStyle(EditorStyles.miniButton);
         style.alignment = TextAnchor.MiddleCenter;
         style.fixedWidth = width;
-		
-		// Not sure why we need this return value. Just copied from the Unity docs.
-		content = EditorGUI.BeginProperty(new Rect(0, 0, 0, 0), content, property);
 
-		EditorGUI.BeginChangeCheck();
-		bool newValue = GUILayout.Toggle(property.boolValue, content, style);
+        // Not sure why we need this return value. Just copied from the Unity docs.
+        content = EditorGUI.BeginProperty(new Rect(0, 0, 0, 0), content, property);
 
-		// Only assign the value back if it was actually changed by the user.
-		// Otherwise a single value will be assigned to all objects when multi-object editing,
-		// even when the user didn't touch the control.
-		if (EditorGUI.EndChangeCheck())
-			property.boolValue = newValue;
-		
-		EditorGUI.EndProperty();
-	}
-	
+        EditorGUI.BeginChangeCheck();
+        bool newValue = GUILayout.Toggle(property.boolValue, content, style);
+
+        // Only assign the value back if it was actually changed by the user.
+        // Otherwise a single value will be assigned to all objects when multi-object editing,
+        // even when the user didn't touch the control.
+        if (EditorGUI.EndChangeCheck())
+            property.boolValue = newValue;
+
+        EditorGUI.EndProperty();
+    }
+
     /// <summary>
     /// A generic version of EditorGUILayout.ObjectField.
     /// Allows objects to be drag and dropped or picked.
@@ -112,11 +115,11 @@ public static class PGEditorUtils
     /// 
     /// Instead of this:
     ///     var script = (MyScript)target;
-	///     script.transform = (Transform)EditorGUILayout.ObjectField("My Transform", script.transform, typeof(Transform), true);        
+    ///     script.transform = (Transform)EditorGUILayout.ObjectField("My Transform", script.transform, typeof(Transform), true);        
     /// 
     /// Do this:    
     ///     var script = (MyScript)target;
-	///     script.transform = EditorGUILayout.ObjectField<Transform>("My Transform", script.transform);        
+    ///     script.transform = EditorGUILayout.ObjectField<Transform>("My Transform", script.transform);        
     /// </summary>
     /// <typeparam name="T">The type of object to use</typeparam>
     /// <param name="label">The label (text) to show to the left of the field</param>
@@ -437,7 +440,7 @@ public static class PGEditorUtils
             switch (listButtonPressed)
             {
                 case LIST_BUTTONS.None: // Nothing was pressed, do nothing
-                    break; 
+                    break;
 
                 case LIST_BUTTONS.Up:
                     if (i > 0)
@@ -486,10 +489,10 @@ public static class PGEditorUtils
     /// <param name="expanded">A bool to determine the state of the primary fold-out</param>
     /// <param name="foldOutStates">Dictionary<object, bool> used to track list item states</param>
     /// <returns>The new foldout state from user input. Just like Unity's foldout</returns>
-    public static bool FoldOutSerializedObjList<T>(string label, 
-                                                   List<T> list, 
+    public static bool FoldOutSerializedObjList<T>(string label,
+                                                   List<T> list,
                                                    bool expanded,
-                                                   ref Dictionary<object, bool> foldOutStates) 
+                                                   ref Dictionary<object, bool> foldOutStates)
                                           where T : new()
     {
         return SerializedObjFoldOutList<T>(label, list, expanded, ref foldOutStates, false);
@@ -511,12 +514,12 @@ public static class PGEditorUtils
     /// If true, bools on list items will collapse fields which follow them
     /// </param>
     /// <returns>The new foldout state from user input. Just like Unity's foldout</returns>
-    public static bool SerializedObjFoldOutList<T>(string label, 
-                                                   List<T> list, 
+    public static bool SerializedObjFoldOutList<T>(string label,
+                                                   List<T> list,
                                                    bool expanded,
                                                    ref Dictionary<object, bool> foldOutStates,
-                                                   bool collapseBools) 
-                                          where T : new()    
+                                                   bool collapseBools)
+                                          where T : new()
     {
         // Store the previous indent and return the flow to it at the end
         int indent = EditorGUI.indentLevel;
@@ -610,7 +613,7 @@ public static class PGEditorUtils
             // Use a Horizanal space or the toolbar will extend to the start no matter what
             EditorGUILayout.BeginHorizontal();
             EditorGUI.indentLevel = 0;  // Space will handle this for the header
-            GUILayout.Space((indent+3)*6); // Matches the content indent
+            GUILayout.Space((indent + 3) * 6); // Matches the content indent
 
             EditorGUILayout.BeginHorizontal(EditorStyles.toolbar);
             // Display foldout with current state
@@ -624,7 +627,7 @@ public static class PGEditorUtils
             EditorGUILayout.EndHorizontal();
 
             #endregion Section Header
-            
+
 
             // If folded out, display all serialized fields
             if (foldOutState == true)
@@ -670,7 +673,7 @@ public static class PGEditorUtils
                     break;
 
                 case LIST_BUTTONS.Add:
-                list.Insert(i, new T());
+                    list.Insert(i, new T());
                     break;
             }
             #endregion Process List Changes
@@ -1088,9 +1091,9 @@ public static class PGEditorToolsStringExtensions
             //   Only keep spaces if there is a lower case letter next, and 
             //       capitalize the letter
             if (c == ' ' || c == '_')
-            { 
+            {
                 // Only check the next character is there IS a next character
-                if (i < s.Length-1 && char.IsLower(s[i+1]))
+                if (i < s.Length - 1 && char.IsLower(s[i + 1]))
                 {
                     // If it isn't the first character, add a space before it
                     if (newStr.Length != 0)
@@ -1106,7 +1109,7 @@ public static class PGEditorToolsStringExtensions
                     i++;  // Skip the next. We already used it
                 }
             }  // Handle uppercase letters
-            else if (char.IsUpper(c))    
+            else if (char.IsUpper(c))
             {
                 // If it isn't the first character, add a space before it
                 if (newStr.Length != 0)
@@ -1118,7 +1121,7 @@ public static class PGEditorToolsStringExtensions
                 {
                     newStr.Append(c);
                 }
-            } 
+            }
             else  // Normal character. Store and move on.
             {
                 newStr.Append(c);
@@ -1143,3 +1146,5 @@ public static class PGEditorToolsStringExtensions
     }
 
 }
+
+#endif

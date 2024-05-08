@@ -4,12 +4,15 @@
 #define UNITY_AUDIO_FEATURES_4_1
 #endif
 
+
+#if UNITY_EDITOR
+
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-[CustomEditor( typeof(AudioObject) )]
+[CustomEditor(typeof(AudioObject))]
 public class AudioObject_Editor : EditorEx
 {
     protected AudioObject AO;
@@ -19,80 +22,80 @@ public class AudioObject_Editor : EditorEx
         DrawInspector();
     }
 
-    string FormatVolume( float volume )
+    string FormatVolume(float volume)
     {
-        float dB = 20 * Mathf.Log10( AudioObject.TransformVolume( volume ) );
-        return string.Format( "{0:0.000} ({1:0.0} dB)", volume, dB );
+        float dB = 20 * Mathf.Log10(AudioObject.TransformVolume(volume));
+        return string.Format("{0:0.000} ({1:0.0} dB)", volume, dB);
     }
 
     private void DrawInspector()
     {
-        AO = (AudioObject) target;
+        AO = (AudioObject)target;
 
         BeginInspectorGUI();
 
         //DrawDefaultInspector();
         //VerticalSpace();
 
-        ShowString( AO.audioID, "Audio ID:" );
-        ShowString( AO.category != null ? AO.category.Name : "---" , "Audio Category:" );
-        ShowString( FormatVolume( AO.volume ), "Item Volume:" );
-        ShowString( FormatVolume( AO.volumeTotal ), "Total Volume:" );
-        ShowFloat( (float) AO.startedPlayingAtTime, "Time Started:" );
-        if ( AO.primaryAudioSource )
+        ShowString(AO.audioID, "Audio ID:");
+        ShowString(AO.category != null ? AO.category.Name : "---", "Audio Category:");
+        ShowString(FormatVolume(AO.volume), "Item Volume:");
+        ShowString(FormatVolume(AO.volumeTotal), "Total Volume:");
+        ShowFloat((float)AO.startedPlayingAtTime, "Time Started:");
+        if (AO.primaryAudioSource)
         {
-            ShowString( string.Format( "{0:0.00} half-tones", AudioObject.InverseTransformPitch( AO.primaryAudioSource.pitch ) ), "Pitch:" );
-            if ( AO.primaryAudioSource.clip )
+            ShowString(string.Format("{0:0.00} half-tones", AudioObject.InverseTransformPitch(AO.primaryAudioSource.pitch)), "Pitch:");
+            if (AO.primaryAudioSource.clip)
             {
-                ShowString( string.Format( "{0} / {1}", AO.primaryAudioSource.time, AO.clipLength ), "Time:" );
+                ShowString(string.Format("{0} / {1}", AO.primaryAudioSource.time, AO.clipLength), "Time:");
             }
 
 #if UNITY_AUDIO_FEATURES_4_1
-            if ( AO.scheduledPlayingAtDspTime > 0 )
+            if (AO.scheduledPlayingAtDspTime > 0)
             {
-                ShowFloat( (float) ( AO.scheduledPlayingAtDspTime - AudioSettings.dspTime ), "Scheduled Play In seconds: " );
+                ShowFloat((float)(AO.scheduledPlayingAtDspTime - AudioSettings.dspTime), "Scheduled Play In seconds: ");
 
             }
 #endif
 
         }
-        if ( AO.secondaryAudioSource )
+        if (AO.secondaryAudioSource)
         {
-           
-           ShowString( string.Format( "Secondary: T:{0} Playing:{1}", AO.secondaryAudioSource.time, AO.secondaryAudioSource.isPlaying ), "Time:" );
+
+            ShowString(string.Format("Secondary: T:{0} Playing:{1}", AO.secondaryAudioSource.time, AO.secondaryAudioSource.isPlaying), "Time:");
         }
-        
+
 
         EditorGUILayout.BeginHorizontal();
-        if ( !AO.IsPaused() )
+        if (!AO.IsPaused())
         {
-            if ( GUILayout.Button( "Pause" ) )
+            if (GUILayout.Button("Pause"))
             {
                 AO.Pause();
             }
         }
         else
         {
-            if ( GUILayout.Button( "Unpause" ) )
+            if (GUILayout.Button("Unpause"))
             {
                 AO.Unpause();
             }
         }
 
-        if ( GUILayout.Button( "Stop" ) )
+        if (GUILayout.Button("Stop"))
         {
-            AO.Stop( 0.5f );
+            AO.Stop(0.5f);
         }
-        
-        if ( GUILayout.Button( "FadeIn" ) )
+
+        if (GUILayout.Button("FadeIn"))
         {
-            AO.FadeIn( 2 );
+            AO.FadeIn(2);
         }
-        if ( GUILayout.Button( "FadeOut" ) )
+        if (GUILayout.Button("FadeOut"))
         {
-            AO.FadeOut( 2 );
+            AO.FadeOut(2);
         }
-        if ( GUILayout.Button( "Refresh" ) )
+        if (GUILayout.Button("Refresh"))
         {
         }
         EditorGUILayout.EndHorizontal();
@@ -101,12 +104,14 @@ public class AudioObject_Editor : EditorEx
         EndInspectorGUI();
     }
 
-    
+
     private void VerticalSpace()
     {
         EditorGUILayout.Space();
         EditorGUILayout.Space();
         EditorGUILayout.Space();
     }
-   
+
 }
+
+#endif
